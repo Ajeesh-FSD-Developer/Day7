@@ -1,0 +1,25 @@
+fetch('https://restcountries.com/v3.1/all')
+  .then(response => response.json())
+  .then(data => {
+    
+    var asiaCountries = data.filter(country => country.region && country.region.includes('Asia'));
+    console.log('Countries in Asia:', asiaCountries);
+
+
+    var lowPopulationCountries = data.filter(country => country.population && country.population < 200000);
+    console.log('Countries with population less than 2 lakhs:', lowPopulationCountries);
+
+    
+    data.forEach(country => {
+      console.log(`Name: ${country.name.common}, Capital: ${country.capital}, Flag: ${country.flags.svg}`);
+    });
+
+    
+    var totalPopulation = data.reduce((acc, country) => acc + (country.population || 0), 0);
+    console.log('Total population of countries:', totalPopulation);
+
+    
+    var usDollarCountries = data.filter(country => country.currencies && country.currencies.USD);
+    console.log('Countries using US dollars:', usDollarCountries);
+  })
+  
